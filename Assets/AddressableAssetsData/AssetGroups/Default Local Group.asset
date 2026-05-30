@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: Default Local Group
+  m_GUID: 444c28b888b956741825c6a09507170f
+  m_SerializeEntries:
+  - m_GUID: 3cd999dfab226454bb0c38cea96d08a3
+    m_Address: Assets/Week4/ScriptableObjects/Apple.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ShopItem
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: fda0170eaa2927740967e64650244419, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 5b6963d6bd5e50349a6dbe38db8b345b, type: 2}
+    - {fileID: 11400000, guid: 51fa10608d9dc5e4c8cd0af39259a1c6, type: 2}
