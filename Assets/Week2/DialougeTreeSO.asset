@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8eeefda56c064514db73d2e416a20a3f, type: 3}
+  m_Name: DialougeTreeSO
+  m_EditorClassIdentifier: Assembly-CSharp::DialougeTreeSO
+  dialougeTree:
+  - text: Hello Wanderer, what is your name?
+    responses:
+    - text: Brandon is my name!
+      connotation: 0
+      optionialResponseText: 
+      responseIndex: 0
+      endConversation: 0
+    - text: ...
+      connotation: 2
+      optionialResponseText: Well then.
+      responseIndex: 1
+      endConversation: 0
+    - text: Im not telling!
+      connotation: 1
+      optionialResponseText: Fine, be like that.
+      responseIndex: 2
+      endConversation: 1
+    responseIndex: 0
+  - text: I was wondering what you would like to eat here.
+    responses:
+    - text: Some pasta!
+      connotation: 0
+      optionialResponseText: Execellent Choice
+      responseIndex: 0
+      endConversation: 1
+    - text: ...
+      connotation: 2
+      optionialResponseText: Speak up!
+      responseIndex: 1
+      endConversation: 1
+    - text: Your food sucks
+      connotation: 1
+      optionialResponseText: Get out!
+      responseIndex: 2
+      endConversation: 1
+    responseIndex: 0
+  oneTimeConversation: 0
+  conservationSpent: 0
+  finalNode: 0
