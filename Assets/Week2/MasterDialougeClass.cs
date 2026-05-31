@@ -7,6 +7,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
+using UnityEngine.Events;
+using Unity.Mathematics;
 
 public class MasterDialougeClass : MonoBehaviour
 {
@@ -17,6 +19,7 @@ public class MasterDialougeClass : MonoBehaviour
 
     [Header("Temporary Go to Next Node Wait")]
     [SerializeField] private float waitTime = 1.5f;
+
 
     // UI Controller
     private DialougeUIController dialougeUIController;
@@ -291,17 +294,30 @@ public class MasterDialougeClass : MonoBehaviour
     // Creates the reponse buttons for the current node
     private void SetUpResponseButton(GameObject responseButton, DialougeNode currentNode)
     {
-        responseButton = dialougeUIController.responseButtonPrefab;
-        int amountOfButtonsToMake = currentNode.responses.Length;
+        GameObject prefabToSpawn = dialougeUIController.responseButtonPrefab;
 
-        for (int i = 0; i < amountOfButtonsToMake; i++)
-        {
-            GameObject makeButton = Instantiate(responseButton, dialougeUIController.responseButtonContainter.transform, worldPositionStays: true);
-            AssignOnClickEvents(makeButton.GetComponent<Button>());
-            makeButton.name = "Response_" + i;
-            responseButtons.Add(makeButton);
+        int amountOfButtonsToMake = currentNode.responses.Length; 
+        
+        for (int i = 0; i < amountOfButtonsToMake; i++) 
+        { 
+            
+            GameObject makeButton = Instantiate(prefabToSpawn, dialougeUIController.responseButtonContainter.transform, worldPositionStays: false); 
+            
+            Button buttonComponent = makeButton.GetComponent<Button>();
+
+            if (buttonComponent != null)
+            {
+                AssignOnClickEventForResponseButtons(currentNode.responses[i], buttonComponent); 
+                AssignOnClickEvents(buttonComponent); 
+            }
+            else
+            {
+                Debug.LogError("The responseButtonPrefab does not have a Button component attached!");
+            }
+
+            makeButton.name = "Response_" + i; 
+            responseButtons.Add(makeButton); 
         }
-
     }
 
     // Fires at the end of the conversation to initiate cleanup
@@ -452,6 +468,25 @@ public class MasterDialougeClass : MonoBehaviour
         responseNode = indexOfButton;
     }
 
+    private void AssignOnClickEventForResponseButtons(DialougePlayerResponse response, Button button)
+    {
+
+        foreach (ButtonEvents buttonEvent in response.buttonEvents) 
+        { 
+            ButtonEvents currentEventData = buttonEvent;
+            
+            if(currentEventData.buttonEvent.GetPersistentEventCount() == 0)
+            {
+                Debug.LogWarning($"[Dialogue System] Button '{button.name}' was assigned an event, but the event has 0 functions hooked up in the inspector!");
+            }
+
+            button.onClick.AddListener(() => {
+                Debug.Log($"[Dialogue System] Button physically clicked! Invoking event now...");
+                currentEventData.buttonEvent.Invoke(); 
+            }); 
+        }
+    }
+
     // Adds listener onclick events to buttons
     protected virtual void AssignOnClickEvents(Button button)
     {
@@ -459,7 +494,6 @@ public class MasterDialougeClass : MonoBehaviour
         button.onClick.AddListener(() => AdjustCharacterFeelingScoreToResponse(characterSO, nodes[currentNode].responses[responseNode]));
         button.onClick.AddListener(StopConversation);
         button.onClick.AddListener(GoToNextNode);
-        
 
     }
 

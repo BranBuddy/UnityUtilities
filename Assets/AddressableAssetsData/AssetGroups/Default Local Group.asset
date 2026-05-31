@@ -15,6 +15,12 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_GUID: 444c28b888b956741825c6a09507170f
   m_SerializeEntries:
+  - m_GUID: 36ca884518271074a8bf3f546d00f844
+    m_Address: Assets/Week4/ScriptableObjects/Pear.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ShopItem
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3cd999dfab226454bb0c38cea96d08a3
     m_Address: Assets/Week4/ScriptableObjects/Apple.asset
     m_ReadOnly: 0

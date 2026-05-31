@@ -1,34 +1,54 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
-using UnityEngine.UIElements;
+using UnityEngine.UI; 
 public class InGameShopScrollview : MonoBehaviour
 {
-    [SerializeField] private ScrollView shopScrollView;
     [SerializeField] private GameObject contentView;
+    [SerializeField] private GameObject shopProfilePrefab;
 
     public string itemFolderAddress;
 
-    private List<ItemSO> loadedItems = new List<ItemSO>();
+    private List<ShopItemSO> loadedItems = new List<ShopItemSO>();
 
     private void Start()
     {
-       Addressables.LoadAssetsAsync<ItemSO>("ShopItem", null).Completed += LoadAllShopItems;
+       Addressables.LoadAssetsAsync<ShopItemSO>("ShopItem", null).Completed += LoadAllShopItems;
     }
 
-    private void LoadAllShopItems(AsyncOperationHandle<IList<ItemSO>> handle)
+    private void LoadAllShopItems(AsyncOperationHandle<IList<ShopItemSO>> handle)
     {
         if (string.IsNullOrWhiteSpace(itemFolderAddress))
             return;
 
         if (handle.Status == AsyncOperationStatus.Succeeded)
         {
-            foreach (ItemSO item in handle.Result)
+            foreach (ShopItemSO item in handle.Result)
             {
                 loadedItems.Add(item);
+                BuildShopProfile(item);
                 Debug.Log("Loading " + item.itemName);
             }
         }
+    }
+
+    public void BuildShopProfile(ShopItemSO item)
+    {
+        GameObject profile = Instantiate(shopProfilePrefab, contentView.transform);
+
+        Image image = profile.GetComponentInChildren<Image>();
+        TextMeshProUGUI text = profile.GetComponentInChildren<TextMeshProUGUI>();
+
+        ShopProfile shopProfile = profile.GetComponent<ShopProfile>();
+
+        shopProfile.assignedItemSO = item;
+        
+        if (image != null)
+            image.sprite = item.itemSprite;
+        if (text != null)
+            text.text = $"{item.itemName}:\n{item.itemCost}";
+
     }
 }

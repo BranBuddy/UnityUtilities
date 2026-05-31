@@ -9,6 +9,10 @@ public class PlayerInventory : MonoBehaviour
 {
     Dictionary<int, string> inventory = new Dictionary<int, string>();
 
+    public int _playerCurrency;
+
+    public int PlayerCurrency { get {return _playerCurrency; } set {_playerCurrency = value; }}
+
     public void AddItemToInventory(int id, string name)
     {
         if (!inventory.ContainsKey(id))
@@ -22,4 +26,5 @@ public class PlayerInventory : MonoBehaviour
         if (inventory.ContainsKey(id))
             inventory.Remove(id);
     }
+
 }

@@ -4,7 +4,9 @@
     and whether the conversation ends there.
 */
 
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 // Individual Piece of dialouge
 [System.Serializable]
@@ -38,11 +40,19 @@ public class DialougePlayerResponse
     [SerializeField]
     public bool endConversation = false;
 
+    [SerializeField]
+    public ButtonEvents[] buttonEvents;
+
 }
 
+[System.Serializable]
+public class ButtonEvents
+{
+    public UnityEvent buttonEvent;
+    internal string eventName = "fuck";
+}
 
-[CreateAssetMenu(fileName = "DialougeTreeSO", menuName = "Scriptable Objects/DialougeTreeSO")]
-public class DialougeTreeSO : ScriptableObject
+public class DialougeTreeSO : MonoBehaviour
 {
    [SerializeField, Tooltip("This is the dialouge tree and create as many as needed")] public DialougeNode[] dialougeTree;
 
